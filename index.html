@@ -1,157 +1,82 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-  <meta name="theme-color" content="#02070a">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="ZSHS0">
-  <link rel="manifest" href="manifest.webmanifest">
-  <title>ZSHS0</title>
-  <style>
-    :root{--hud:#62f7ff;--dim:rgba(98,247,255,.30);--bg:#020609}
-    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--hud)}
-    #camera{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;background:radial-gradient(circle at 50% 50%,#111 0,#030506 70%,#000 100%);transform:scaleX(1)}
-    body.night #camera{filter:brightness(1.75) contrast(1.45) saturate(.18) sepia(.55) hue-rotate(72deg)}
-    body.night::after{content:"";position:fixed;inset:0;pointer-events:none;background:rgba(25,255,110,.06);mix-blend-mode:screen}
-    #scan{position:fixed;inset:0;pointer-events:none;opacity:.14;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(98,247,255,.14) 4px)}
-    #hud{position:fixed;inset:0;pointer-events:none;text-shadow:0 0 9px rgba(98,247,255,.5)}
-    .corner{position:absolute;width:19vw;height:19vw;max-width:180px;max-height:180px;border-color:var(--hud);opacity:.8}
-    .tl{left:3vw;top:4vh;border-left:2px solid;border-top:2px solid}
-    .tr{right:3vw;top:4vh;border-right:2px solid;border-top:2px solid}
-    .bl{left:3vw;bottom:4vh;border-left:2px solid;border-bottom:2px solid}
-    .br{right:3vw;bottom:4vh;border-right:2px solid;border-bottom:2px solid}
-    #topbar{position:absolute;left:50%;top:3vh;transform:translateX(-50%);display:flex;gap:3vw;font-size:clamp(12px,2.2vw,22px);letter-spacing:.12em;white-space:nowrap}
-    #brand{font-weight:800}
-    #mode.n{color:#a4ffab;text-shadow:0 0 10px rgba(120,255,130,.65)}
-    #center{position:absolute;left:50%;top:50%;width:90px;height:90px;transform:translate(-50%,-50%)}
-    #center::before,#center::after{content:"";position:absolute;background:var(--hud);opacity:.7}
-    #center::before{width:90px;height:1px;left:0;top:44px}
-    #center::after{height:90px;width:1px;left:44px;top:0}
-    .ret{position:absolute;inset:22px;border:1px solid rgba(98,247,255,.65);transform:rotate(45deg)}
-    #left,#right{position:absolute;top:18vh;font-size:clamp(11px,1.8vw,18px);line-height:1.7;letter-spacing:.08em}
-    #left{left:5vw}
-    #right{right:5vw;text-align:right}
-    #horizon{position:absolute;left:50%;top:72%;transform:translate(-50%,-50%);width:46vw;max-width:520px;height:68px;border-top:1px solid rgba(98,247,255,.65)}
-    #horizon .tick{position:absolute;top:-5px;width:1px;height:10px;background:var(--hud);opacity:.55}
-    #pitch{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:12px}
-    #warning{position:absolute;left:50%;bottom:14vh;transform:translateX(-50%);background:rgba(0,0,0,.55);border:1px solid rgba(98,247,255,.35);padding:8px 12px;font-size:12px;display:none;max-width:84vw;text-align:center}
-    #controls{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;gap:10px;z-index:20}
-    button{pointer-events:auto;color:#bafcff;background:rgba(0,14,18,.76);border:1px solid rgba(98,247,255,.6);border-radius:12px;padding:11px 15px;font:700 12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;backdrop-filter:blur(8px)}
-    button:active{transform:scale(.97)}
-    #boot{position:fixed;inset:0;background:#010406;z-index:99;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;color:var(--hud);letter-spacing:.22em}
-    #boot small{opacity:.58;letter-spacing:.08em}
-    #bootbar{width:220px;height:2px;background:#0a2930;overflow:hidden}
-    #bootbar i{display:block;height:100%;width:0;background:var(--hud);animation:load 1.5s ease forwards}
-    @keyframes load{to{width:100%}}
-    @media (orientation:portrait){#left,#right{top:13vh}.corner{width:24vw;height:24vw}#horizon{width:70vw}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#010507">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ZSHS0">
+<link rel="manifest" href="manifest.webmanifest">
+<title>ZSHS0 V0.2</title>
+<style>
+:root{--hud:#63f6ff;--soft:rgba(99,246,255,.28);--panel:rgba(0,14,18,.64);--night:#a9ffb3}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--hud)}
+#camera{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;background:#010405}
+body.night #camera{filter:brightness(1.55) contrast(1.30) saturate(.42) sepia(.20) hue-rotate(68deg)}
+body.night:after{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(rgba(25,255,115,.035),rgba(25,255,115,.075));mix-blend-mode:screen}
+#scan{position:fixed;inset:0;pointer-events:none;opacity:.10;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(99,246,255,.11) 4px)}
+#hud{position:fixed;inset:0;pointer-events:none;text-shadow:0 0 8px rgba(99,246,255,.42)}
+.corner{position:absolute;width:18vw;height:18vw;max-width:185px;max-height:185px;opacity:.75}
+.tl{left:max(3vw,env(safe-area-inset-left));top:max(4vh,env(safe-area-inset-top));border-left:2px solid var(--hud);border-top:2px solid var(--hud)}
+.tr{right:max(3vw,env(safe-area-inset-right));top:max(4vh,env(safe-area-inset-top));border-right:2px solid var(--hud);border-top:2px solid var(--hud)}
+.bl{left:max(3vw,env(safe-area-inset-left));bottom:max(4vh,env(safe-area-inset-bottom));border-left:2px solid var(--hud);border-bottom:2px solid var(--hud)}
+.br{right:max(3vw,env(safe-area-inset-right));bottom:max(4vh,env(safe-area-inset-bottom));border-right:2px solid var(--hud);border-bottom:2px solid var(--hud)}
+#topbar{position:absolute;left:50%;top:max(3vh,env(safe-area-inset-top));transform:translateX(-50%);display:flex;gap:2.4vw;align-items:center;font-size:clamp(12px,2.1vw,22px);letter-spacing:.12em;white-space:nowrap}
+#brand{font-weight:900}.ver{font-size:.58em;opacity:.56;letter-spacing:.05em}#mode.n{color:var(--night);text-shadow:0 0 11px rgba(150,255,160,.55)}
+#left,#right{position:absolute;top:18vh;font-size:clamp(11px,1.75vw,18px);line-height:1.8;letter-spacing:.08em}
+#left{left:max(5vw,calc(env(safe-area-inset-left) + 18px))}#right{right:max(5vw,calc(env(safe-area-inset-right) + 18px));text-align:right}
+.label{opacity:.56;font-size:.74em}
+#horizonWrap{position:absolute;left:50%;top:71%;transform:translate(-50%,-50%);width:48vw;max-width:560px;height:82px;overflow:visible}
+#horizon{position:absolute;left:0;right:0;top:20px;border-top:1px solid rgba(99,246,255,.72);transform-origin:center}
+#horizon:before,#horizon:after{content:"";position:absolute;top:-5px;width:1px;height:10px;background:rgba(99,246,255,.55)}#horizon:before{left:33%}#horizon:after{right:33%}
+#pitch{position:absolute;top:42px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:.14em;white-space:nowrap}
+#status{position:absolute;left:50%;bottom:16vh;transform:translateX(-50%);padding:7px 11px;background:rgba(0,0,0,.48);border:1px solid rgba(99,246,255,.28);font-size:11px;display:none;max-width:78vw;text-align:center;white-space:nowrap}
+#controls{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;gap:9px;z-index:20;transition:.2s opacity,.2s transform}
+#controls.hidden{opacity:0;transform:translate(-50%,18px);pointer-events:none}
+button{color:#c2fbff;background:var(--panel);border:1px solid rgba(99,246,255,.55);border-radius:13px;padding:10px 14px;font:700 12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.07em;backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
+button.active{background:rgba(35,160,175,.22);box-shadow:0 0 14px rgba(99,246,255,.15) inset}button:active{transform:scale(.97)}
+#menuHint{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom));z-index:18;color:rgba(160,250,255,.55);font-size:10px;letter-spacing:.08em;pointer-events:none}
+#boot{position:fixed;inset:0;background:#010406;z-index:99;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:13px;color:var(--hud);letter-spacing:.22em}
+#boot b{font-size:24px}#boot small{opacity:.56;letter-spacing:.09em}#bootbar{width:min(260px,55vw);height:2px;background:#0a2930;overflow:hidden}#bootbar i{display:block;height:100%;width:0;background:var(--hud);animation:load 1.25s ease forwards}
+@keyframes load{to{width:100%}}
+@media (orientation:portrait){#left,#right{top:13vh}.corner{width:24vw;height:24vw}#horizonWrap{width:72vw;top:74%}#controls{gap:5px}button{padding:9px 8px;font-size:10px}}
+</style>
 </head>
 <body>
-  <video id="camera" autoplay playsinline muted></video>
-  <div id="scan"></div>
-  <div id="hud">
-    <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
-    <div id="topbar"><span id="brand">ZSHS0</span><span id="mode">NORMAL</span><span id="clock">--:--</span></div>
-    <div id="left">
-      BAT <span id="battery">--</span><br>
-      AI <span id="ai">READY</span><br>
-      CAM <span id="camstat">INIT</span>
-    </div>
-    <div id="right">
-      HDG <span id="heading">000°</span><br>
-      PIT <span id="pitchv">+00°</span><br>
-      ROL <span id="rollv">+00°</span>
-    </div>
-    <div id="center"><div class="ret"></div></div>
-    <div id="horizon"><span id="pitch">LEVEL</span></div>
-    <div id="warning"></div>
-  </div>
-  <div id="controls">
-    <button id="normalBtn">NORMAL</button>
-    <button id="nightBtn">NIGHT</button>
-    <button id="sensorBtn">CAPTEURS</button>
-    <button id="voiceBtn">PARLER</button>
-  </div>
-  <div id="boot"><b>ZSHS0</b><small>INITIALISATION SYSTÈME</small><div id="bootbar"><i></i></div></div>
+<video id="camera" autoplay playsinline muted></video><div id="scan"></div>
+<div id="hud">
+<div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+<div id="topbar"><span id="brand">ZSHS0 <span class="ver">V0.2</span></span><span id="mode">NORMAL</span><span id="clock">--:--</span></div>
+<div id="left"><span class="label">POWER</span> <span id="battery">SYSTEM</span><br><span class="label">AI</span> <span id="ai">READY</span><br><span class="label">CAM</span> <span id="camstat">INIT</span></div>
+<div id="right"><span class="label">HDG</span> <span id="heading">---°</span><br><span class="label">PIT</span> <span id="pitchv">--°</span><br><span class="label">ROL</span> <span id="rollv">--°</span></div>
+<div id="horizonWrap"><div id="horizon"></div><span id="pitch">SENSORS STANDBY</span></div><div id="status"></div>
+</div>
+<div id="controls"><button id="normalBtn" class="active">NORMAL</button><button id="nightBtn">NIGHT</button><button id="sensorBtn">CAPTEURS</button><button id="voiceBtn">PARLER</button></div>
+<div id="menuHint">TOUCHER ÉCRAN · COMMANDES</div>
+<div id="boot"><b>ZSHS0</b><small>V0.2 · INITIALISATION</small><div id="bootbar"><i></i></div></div>
 <script>
-const $=id=>document.getElementById(id);
-let currentMode='NORMAL', stream=null;
-
-function say(t){
-  try{speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='fr-FR';u.rate=.95;speechSynthesis.speak(u)}catch(e){}
-}
-function warn(t,ms=3500){const w=$('warning');w.textContent=t;w.style.display='block';clearTimeout(w._t);w._t=setTimeout(()=>w.style.display='none',ms)}
-function mode(m,voice=true){
-  currentMode=m;
-  document.body.classList.toggle('night',m==='NIGHT');
-  $('mode').textContent=m;
-  $('mode').className=m==='NIGHT'?'n':'';
-  if(voice)say(m==='NIGHT'?'Mode nuit activé.':'Mode normal activé.');
-}
-$('normalBtn').onclick=()=>mode('NORMAL');
-$('nightBtn').onclick=()=>mode('NIGHT');
-
-async function startCamera(){
-  try{
-    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080}},audio:false});
-    $('camera').srcObject=stream;$('camstat').textContent='ONLINE';
-  }catch(e){$('camstat').textContent='OFFLINE';warn('Caméra indisponible. Sur iPhone, ouvre ZSHS0 depuis une page HTTPS et autorise la caméra.',7000)}
-}
-function updateClock(){const d=new Date();$('clock').textContent=d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});}
-setInterval(updateClock,1000);updateClock();
-
-if(navigator.getBattery){navigator.getBattery().then(b=>{const f=()=>{$('battery').textContent=Math.round(b.level*100)+'%'};f();b.addEventListener('levelchange',f)})}
-
-function ori(e){
-  let h=Number.isFinite(e.alpha)?e.alpha:0;
-  let p=Number.isFinite(e.beta)?e.beta:0;
-  let r=Number.isFinite(e.gamma)?e.gamma:0;
-  $('heading').textContent=String(Math.round(h)).padStart(3,'0')+'°';
-  $('pitchv').textContent=(p>=0?'+':'')+Math.round(p)+'°';
-  $('rollv').textContent=(r>=0?'+':'')+Math.round(r)+'°';
-  $('pitch').textContent=Math.abs(p)<4?'LEVEL':(p>0?'NOSE +':'NOSE ')+Math.round(p)+'°';
-  $('horizon').style.transform=`translate(-50%,-50%) rotate(${-r}deg) translateY(${Math.max(-25,Math.min(25,p/3))}px)`;
-}
-async function enableSensors(){
-  try{
-    if(typeof DeviceOrientationEvent!=='undefined' && typeof DeviceOrientationEvent.requestPermission==='function'){
-      const p=await DeviceOrientationEvent.requestPermission();
-      if(p!=='granted') throw new Error('refus');
-    }
-    window.addEventListener('deviceorientation',ori,true);say('Capteurs activés.');$('sensorBtn').textContent='CAPTEURS ✓';
-  }catch(e){warn('Permission capteurs refusée ou indisponible.')}
-}
-$('sensorBtn').onclick=enableSensors;
-
-function handleVoice(s){
-  s=s.toLowerCase();
-  if(s.includes('nuit')) mode('NIGHT');
-  else if(s.includes('normal')||s.includes('jour')) mode('NORMAL');
-  else if(s.includes('batterie')) say('Batterie '+$('battery').textContent);
-  else if(s.includes('statut')) say('Z S H S zéro opérationnel. Mode '+currentMode.toLowerCase()+'.');
-  else say("Commande non reconnue.");
-}
-$('voiceBtn').onclick=()=>{
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){warn("Reconnaissance vocale web indisponible ici. La synthèse vocale fonctionne quand même.");say("Assistant prêt.");return}
-  const r=new SR();r.lang='fr-FR';r.interimResults=false;r.maxAlternatives=1;
-  $('ai').textContent='LISTEN';
-  r.onresult=e=>handleVoice(e.results[0][0].transcript);
-  r.onerror=()=>warn('Reconnaissance vocale interrompue.');
-  r.onend=()=>$('ai').textContent='READY';
-  r.start();
-};
-
-async function immersive(){
-  try{if(document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen()}catch(e){}
-  try{if(navigator.wakeLock) await navigator.wakeLock.request('screen')}catch(e){}
-}
-document.addEventListener('click',immersive,{once:true});
-setTimeout(()=>{$('boot').style.display='none';startCamera();say('Z S H S zéro initialisé.');},1650);
-if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
+const $=id=>document.getElementById(id);let currentMode='NORMAL',stream=null,controlsTimer=null,sensorsOn=false;
+function say(text){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='fr-FR';u.rate=.96;speechSynthesis.speak(u)}catch(e){}}
+function status(text,ms=3200){const e=$('status');e.textContent=text;e.style.display='block';clearTimeout(e._t);e._t=setTimeout(()=>e.style.display='none',ms)}
+function showControls(){const c=$('controls');c.classList.remove('hidden');clearTimeout(controlsTimer);controlsTimer=setTimeout(()=>c.classList.add('hidden'),4500)}
+function setMode(m,voice=true){currentMode=m;const night=m==='NIGHT';document.body.classList.toggle('night',night);$('mode').textContent=m;$('mode').className=night?'n':'';$('normalBtn').classList.toggle('active',!night);$('nightBtn').classList.toggle('active',night);status(night?'LOW-LIGHT SOFTWARE ACTIVE':'NORMAL OPTICS');if(voice)say(night?'Mode nuit activé.':'Mode normal activé.');showControls()}
+$('normalBtn').onclick=e=>{e.stopPropagation();setMode('NORMAL')};$('nightBtn').onclick=e=>{e.stopPropagation();setMode('NIGHT')};
+async function startCamera(){try{if(!navigator.mediaDevices?.getUserMedia)throw Error('unsupported');stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080}},audio:false});$('camera').srcObject=stream;await $('camera').play().catch(()=>{});$('camstat').textContent='ONLINE'}catch(e){$('camstat').textContent='OFFLINE';status('CAMÉRA INDISPONIBLE · OUVRIR EN HTTPS/SAFARI',6500)}}
+function updateClock(){$('clock').textContent=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}setInterval(updateClock,1000);updateClock();
+if(navigator.getBattery){navigator.getBattery().then(b=>{const f=()=>{$('battery').textContent=Math.round(b.level*100)+'%'};f();b.addEventListener('levelchange',f)}).catch(()=>{})}else{$('battery').textContent=/iPhone|iPad|iPod/i.test(navigator.userAgent)?'iOS':'EXT'}
+function signed(v){const n=Math.round(v);return(n>=0?'+':'')+n+'°'}
+function ori(e){let heading;if(typeof e.webkitCompassHeading==='number')heading=e.webkitCompassHeading;else if(Number.isFinite(e.alpha))heading=(360-e.alpha)%360;let p=Number.isFinite(e.beta)?e.beta:0,r=Number.isFinite(e.gamma)?e.gamma:0;if(Number.isFinite(heading))$('heading').textContent=String(Math.round(heading)).padStart(3,'0')+'°';$('pitchv').textContent=signed(p);$('rollv').textContent=signed(r);$('pitch').textContent=Math.abs(p)<4?'LEVEL':(p>0?'PITCH +':'PITCH ')+Math.round(p)+'°';$('horizon').style.transform=`rotate(${-r}deg) translateY(${Math.max(-24,Math.min(24,p/3))}px)`}
+async function enableSensors(){try{if(typeof DeviceOrientationEvent==='undefined')throw Error('absent');if(typeof DeviceOrientationEvent.requestPermission==='function'){const ok=await DeviceOrientationEvent.requestPermission();if(ok!=='granted')throw Error('refus')}window.removeEventListener('deviceorientation',ori,true);window.addEventListener('deviceorientation',ori,true);sensorsOn=true;$('sensorBtn').textContent='CAPTEURS ✓';$('pitch').textContent='CALIBRATION';status('CAPTEURS ACTIVÉS');say('Capteurs activés.')}catch(e){status('CAPTEURS REFUSÉS OU INDISPONIBLES',5200)}showControls()}
+$('sensorBtn').onclick=e=>{e.stopPropagation();enableSensors()};
+function handleVoice(text){const s=text.toLowerCase();if(s.includes('nuit'))setMode('NIGHT');else if(s.includes('normal')||s.includes('jour'))setMode('NORMAL');else if(s.includes('batterie')||s.includes('alimentation'))say('État alimentation '+$('battery').textContent);else if(s.includes('statut'))say('Z S H S zéro version zéro point deux opérationnel. Mode '+currentMode.toLowerCase()+'.');else if(s.includes('capteur'))enableSensors();else say('Commande non reconnue.')}
+function listen(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){status('RECONNAISSANCE VOCALE NON PRISE EN CHARGE',4800);say('Assistant prêt.');return}try{const r=new SR();r.lang='fr-FR';r.interimResults=false;r.maxAlternatives=1;$('ai').textContent='LISTEN';status('ÉCOUTE…',8000);r.onresult=e=>{const t=e.results?.[0]?.[0]?.transcript||'';status('« '+t+' »',2600);handleVoice(t)};r.onerror=e=>status('VOIX INDISPONIBLE · '+(e.error||'ERREUR'),4000);r.onend=()=>{$('ai').textContent='READY';showControls()};r.start()}catch(e){$('ai').textContent='READY';status('RECONNAISSANCE VOCALE INDISPONIBLE')}}
+$('voiceBtn').onclick=e=>{e.stopPropagation();listen()};
+async function immersive(){try{if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen()}catch(e){}try{if(navigator.wakeLock)await navigator.wakeLock.request('screen')}catch(e){}}
+document.addEventListener('click',()=>{showControls();immersive()});document.addEventListener('touchstart',showControls,{passive:true});
+setTimeout(()=>{$('boot').style.display='none';startCamera();showControls();say('Z S H S zéro version zéro point deux initialisé.');},1400);
+if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 </script>
 </body>
 </html>
