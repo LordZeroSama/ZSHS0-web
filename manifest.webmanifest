@@ -1,0 +1,10 @@
+{
+  "name": "ZSHS0 HUD Prototype",
+  "short_name": "ZSHS0",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#010406",
+  "theme_color": "#02070a",
+  "orientation": "any"
+}
