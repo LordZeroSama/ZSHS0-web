@@ -2,14 +2,26 @@
 
 Prototype web/PWA du casque ZSHS0.
 
-## Fonctions V0.1
+## Fonctions V0.2
 
 - caméra arrière plein écran
-- HUD ZSHS0
+- HUD ZSHS0 épuré, sans viseur central
 - modes NORMAL / NIGHT logiciel
-- orientation / pitch / roll si le navigateur autorise les capteurs
+- interface adaptée aux safe areas iPhone / Dynamic Island
+- horizon artificiel
+- heading / pitch / roll si le navigateur autorise les capteurs
+- meilleure prise en charge de `webkitCompassHeading` sur iPhone
 - synthèse vocale
 - commandes vocales selon les capacités du navigateur
-- installation PWA sur l’écran d’accueil
+- commandes HUD qui se masquent automatiquement
+- cache PWA mis à jour pour forcer la V0.2
 
-> Prototype expérimental. Le mode NIGHT n’est pas de la vision infrarouge et l’affichage caméra ne doit pas être utilisé comme seul moyen de vision pendant la conduite.
+## Commandes vocales de base
+
+- « mode nuit »
+- « mode normal »
+- « batterie » / « alimentation »
+- « statut »
+- « capteurs »
+
+> Prototype expérimental. Le mode NIGHT est une amplification logicielle, pas de la vision infrarouge. Ne pas utiliser l'affichage caméra comme seul moyen de vision pour conduire ou piloter un véhicule.
